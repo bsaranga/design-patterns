@@ -7,8 +7,6 @@ namespace ocp
   Open Close Principle states that a type is open for extension but closed for modification.
   We do not want to modify something that already works and is in production already, but nevertheless
   we need to add extensibility.
-
-  page 25
   */
 
   public enum Color
@@ -77,11 +75,48 @@ namespace ocp
     }
   }
 
-  class Program
+  public class ColorSpecification : ISpecification<Product>
+  {
+    private Color color;
+    public ColorSpecification(Color color)
     {
-    static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+        this.color = color;
     }
+    public bool IsSatisfied(Product p)
+    {
+      return p.Color == color;
+    }
+  }
+
+  public class AndSpecification<T> : ISpecification<T>
+  {
+    private readonly ISpecification<T> first, second;
+    public AndSpecification(ISpecification<T> first, ISpecification<T> second)
+    {
+        this.first = first;
+        this.second = second;
+    }
+    public bool IsSatisfied(T t)
+    {
+      return first.IsSatisfied(t) && second.IsSatisfied(t);
+    }
+  }
+
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      var apple = new Product("Apple", Color.Green, Size.Small);
+      var tree = new Product("Tree", Color.Green, Size.Large);
+      var house = new Product("House", Color.Blue, Size.Large);
+
+      Product[] products = {apple, tree, house};
+
+      var pf = new ProductFilter();
+      foreach(var p in pf.FilterByColor(products, Color.Green))
+      {
+        Console.WriteLine($"{p.Name}");
+      }
+    }
+  }
 }
