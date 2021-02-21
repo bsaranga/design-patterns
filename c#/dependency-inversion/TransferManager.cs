@@ -8,11 +8,11 @@ namespace dependency_inversion
 {
     public class TransferManager
     {
-        public BankAccount Source { get; set; }
-        public BankAccount Destination { get; set; }
+        public ITransferSource Source { get; set; }
+        public ITransferDestination Destination { get; set; }
         public decimal Value { get; set; }
 
-        public TransferManager(BankAccount src, BankAccount dst, decimal val)
+        public TransferManager(ITransferSource src, ITransferDestination dst, decimal val)
         {
             Source = src;
             Destination = dst;

@@ -1,7 +1,7 @@
 ﻿
 namespace dependency_inversion
 {
-    public class BankAccount
+    public class BankAccount : ITransferSource, ITransferDestination
     {
         public string AccountNumber { get; set; }
         public decimal Balance { get; set; }
