@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace dependency_inversion
 {
-    public interface ITaskService
+    public interface ITransferSource
     {
-        IEnumerable<TaskModel> GetTasks();
+        void RemoveFunds(decimal value);
     }
 }
