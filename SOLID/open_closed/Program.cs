@@ -36,6 +36,7 @@ namespace open_closed
 
         }
     }
+
     class ColorSpecification : ISpecification<Product>
     {
         private Color _color;
@@ -47,6 +48,7 @@ namespace open_closed
         {
             return item.color.Equals(_color);
         }
+
     }
     class SizeSpecification : ISpecification<Product>
     {
